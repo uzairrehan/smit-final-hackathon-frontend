@@ -38,7 +38,7 @@ const SignupForm = () => {
     setIsLoading(true);
     try {
       await axios.post("https://smit-final-backend-uzair.vercel.app/auth/register", { username, email, password });
-      alert("Signup successful!");
+      // alert("Signup successful!");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setServerError(error.response?.data?.message || "An error occurred");

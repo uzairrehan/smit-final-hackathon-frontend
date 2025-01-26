@@ -50,7 +50,7 @@ const ForgotPassword = () => {
       );
       saveUser(data);
       console.log(data.data);
-      alert("Password change successful!");
+      // alert("Password change successful!");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setServerError(error.response?.data?.message || "An error occurred");
