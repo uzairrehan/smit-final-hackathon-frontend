@@ -63,7 +63,7 @@ export function UserRegistrationModal({
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:4000/auth/register",
+        "https://smit-final-backend-uzair.vercel.app/auth/register",
         formData
       );
       console.log("register=>",response);
@@ -72,7 +72,7 @@ export function UserRegistrationModal({
         return;
       }
       const loanData = await axios.post(
-        "http://localhost:4000/loans/addloans",
+        "https://smit-final-backend-uzair.vercel.app/loans/addloans",
         loan
       );
 

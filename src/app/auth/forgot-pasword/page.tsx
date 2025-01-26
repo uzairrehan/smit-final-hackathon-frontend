@@ -45,7 +45,7 @@ const ForgotPassword = () => {
     setIsLoading(true);
     try {
       const data = await axios.post(
-        "http://localhost:4000/auth/changepassword",
+        "https://smit-final-backend-uzair.vercel.app/auth/changepassword",
         values
       );
       saveUser(data);

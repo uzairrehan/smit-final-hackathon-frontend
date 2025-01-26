@@ -43,7 +43,7 @@ const LoginForm = () => {
     setServerError("");
     setIsLoading(true);
     try {
-      const data = await axios.post("http://localhost:4000/auth/login", values);
+      const data = await axios.post("https://smit-final-backend-uzair.vercel.app/auth/login", values);
       saveUser(data.data);
       console.log(data.data);
       alert("Login successful!");

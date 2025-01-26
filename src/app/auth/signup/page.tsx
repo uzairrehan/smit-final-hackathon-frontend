@@ -37,7 +37,7 @@ const SignupForm = () => {
 
     setIsLoading(true);
     try {
-      await axios.post("http://localhost:4000/auth/register", { username, email, password });
+      await axios.post("https://smit-final-backend-uzair.vercel.app/auth/register", { username, email, password });
       alert("Signup successful!");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
