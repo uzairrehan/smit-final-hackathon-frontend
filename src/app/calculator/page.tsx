@@ -3,13 +3,25 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { UserRegistrationModal } from "@/components/user-registration-modal";
-import useLoanStore from "@/store/loanStore.js"
-
+import useLoanStore from "@/store/loanStore.js";
 
 const loanCategories = [
   { value: "wedding", label: "Wedding Loans" },
@@ -21,7 +33,12 @@ const loanCategories = [
 const subcategories = {
   wedding: ["Valima", "Furniture", "Valima Food", "Jahez"],
   home: ["Structure", "Finishing", "Loan"],
-  business: ["Buy Stall", "Advance Rent for Shop", "Shop Assets", "Shop Machinery"],
+  business: [
+    "Buy Stall",
+    "Advance Rent for Shop",
+    "Shop Assets",
+    "Shop Machinery",
+  ],
   education: ["University Fees", "Child Fees Loan"],
 };
 
@@ -33,7 +50,7 @@ const maxLoanAmounts: Record<string, number | string> = {
 };
 
 export default function LoanCalculator() {
-  const [category, setCategory] = useState<string>("");
+  const [category, setCategory] = useState<keyof typeof subcategories | "">("");
   const [subcategory, setSubcategory] = useState<string>("");
   const [initialDeposit, setInitialDeposit] = useState<number | string>("");
   const [amount, setAmount] = useState<number | string>("");
@@ -43,12 +60,13 @@ export default function LoanCalculator() {
   const saveLoan = useLoanStore((state) => state.saveLoan);
 
   const calculateLoan = () => {
-
-
     if (amount && initialDeposit && loanPeriod) {
-      const maxLoan = typeof maxLoanAmounts[category] === "number" ? maxLoanAmounts[category] as number : 0;
+      const maxLoan =
+        typeof maxLoanAmounts[category] === "number"
+          ? (maxLoanAmounts[category] as number)
+          : 0;
       console.log(maxLoan);
-      
+
       const principal = (amount as number) - (initialDeposit as number);
       const monthlyPayment = principal / ((loanPeriod as number) * 12);
       setMonthlyInstallment(monthlyPayment);
@@ -56,9 +74,15 @@ export default function LoanCalculator() {
       alert("Please fill in all fields to calculate the loan.");
     }
   };
-  
+
   const handleLoanSubmit = async () => {
-    if (!category || !subcategory || !amount || !initialDeposit || !loanPeriod) {
+    if (
+      !category ||
+      !subcategory ||
+      !amount ||
+      !initialDeposit ||
+      !loanPeriod
+    ) {
       alert("Please complete all fields before proceeding.");
       return;
     }
@@ -71,15 +95,15 @@ export default function LoanCalculator() {
         maxLoanAmount: amount,
         depositAmount: initialDeposit,
         repaymentPeriod: loanPeriod,
-      }
-      saveLoan(data)
+      };
+      saveLoan(data);
       // const response = await axios.post("/api/addloan", );
 
       alert("Loan saved so zustand!");
       setIsModalOpen(true); // Example: Open modal after submission
     } catch (error) {
       console.log(error);
-      
+
       alert("Error submitting loan request. Please try again.");
     }
   };
@@ -89,12 +113,19 @@ export default function LoanCalculator() {
       <Card className="dark p-10 border-none shadow-none">
         <CardHeader>
           <CardTitle>Loan Calculator</CardTitle>
-          <CardDescription>Calculate your estimated loan breakdown</CardDescription>
+          <CardDescription>
+            Calculate your estimated loan breakdown
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="category">Loan Category</Label>
-            <Select value={category} onValueChange={setCategory}>
+            <Select
+              value={category}
+              onValueChange={(value) =>
+                setCategory(value as keyof typeof subcategories)
+              }
+            >
               <SelectTrigger id="category">
                 <SelectValue placeholder="Select loan category" />
               </SelectTrigger>
@@ -117,7 +148,7 @@ export default function LoanCalculator() {
                     <SelectValue placeholder="Select loan subcategory" />
                   </SelectTrigger>
                   <SelectContent>
-                    {subcategories[category]?.map((sub:any) => (
+                    {subcategories[category]?.map((sub: any) => (
                       <SelectItem key={sub} value={sub}>
                         {sub}
                       </SelectItem>
