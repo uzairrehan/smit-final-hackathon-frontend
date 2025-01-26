@@ -1,6 +1,33 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+"use client"
+// React Admin Dashboard Component
+import useSWR from "swr";
+
+
+import axios from "axios";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export default function AdminDashboard() {
+  const { data: totalApplicationsData } = useSWR(
+    "https://smit-final-backend-uzair.vercel.app/loans/applications/count",
+    fetcher
+  );
+  const { data: pendingApprovalsData } = useSWR(
+    "https://smit-final-backend-uzair.vercel.app/loans/applications/pending",
+    fetcher
+  );
+  const { data: totalDisbursedData } = useSWR(
+    "https://smit-final-backend-uzair.vercel.app/loans/applications/disbursed",
+    fetcher
+  );
+
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
@@ -11,7 +38,9 @@ export default function AdminDashboard() {
             <CardDescription>Number of loan applications</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">123</p>
+            <p className="text-3xl font-bold">
+              {totalApplicationsData?.totalApplications || "Loading..."}
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -20,7 +49,9 @@ export default function AdminDashboard() {
             <CardDescription>Applications awaiting review</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">45</p>
+            <p className="text-3xl font-bold">
+              {pendingApprovalsData?.pendingApplications || "Loading..."}
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -29,12 +60,12 @@ export default function AdminDashboard() {
             <CardDescription>Amount of loans given out</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">PKR 10,000,000</p>
+            <p className="text-3xl font-bold">
+              PKR {totalDisbursedData?.totalDisbursed?.toLocaleString() || "Loading..."}
+            </p>
           </CardContent>
         </Card>
       </div>
     </div>
-  )
+  );
 }
-
- 
