@@ -32,7 +32,7 @@ export default function BusinessStartupLoansPage() {
             </div>
             <div className="text-center mt-4">
               <Link href="/apply">
-                <Button className="px-6 py-2 text-teal-400 border-teal-400 hover:bg-teal-400 hover:text-gray-900">
+                <Button className="px-6 py-2">
                   Apply Now
                 </Button>
               </Link>

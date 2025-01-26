@@ -32,7 +32,7 @@ export default function WeddingLoansPage() {
             </div>
             <div className="text-center mt-6">
               <Link href="/apply">
-                <Button className="px-6 py-2 bg-teal-400 text-gray-900 hover:bg-teal-500 hover:text-gray-800">
+                <Button className="px-6 py-2 ">
                   Apply Now
                 </Button>
               </Link>
