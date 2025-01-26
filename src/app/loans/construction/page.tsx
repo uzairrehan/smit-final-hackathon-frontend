@@ -30,7 +30,7 @@ export default function HomeConstructionLoansPage() {
               <p className="text-gray-400">5 years</p>
             </div>
             <div className="text-center mt-4">
-              <Link href="/apply">
+              <Link href="/calculator">
                 <Button className="px-6 py-2 ">
                   Apply Now
                 </Button>

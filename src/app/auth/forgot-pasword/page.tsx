@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import axios from "axios";
 import { z } from "zod";
@@ -21,12 +19,13 @@ import useUserStore from "@/store/userstore";
 // Define Zod schema for validation
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters long"),
+  oldPassword: z.string().min(6, "Password must be at least 6 characters long"),
+  newPassword: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-const LoginForm = () => {
+const ForgotPassword = () => {
   const [serverError, setServerError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const saveUser = useUserStore((state) => state.saveUser);
@@ -35,7 +34,8 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
-      password: "",
+      oldPassword: "",
+      newPassword: "",
     },
   });
 
@@ -43,10 +43,13 @@ const LoginForm = () => {
     setServerError("");
     setIsLoading(true);
     try {
-      const data = await axios.post("http://localhost:4000/auth/login", values);
-      saveUser(data.data);
+      const data = await axios.post(
+        "http://localhost:4000/auth/changepassword",
+        values
+      );
+      saveUser(data);
       console.log(data.data);
-      alert("Login successful!");
+      alert("Password change successful!");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setServerError(error.response?.data?.message || "An error occurred");
@@ -60,7 +63,7 @@ const LoginForm = () => {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
-            Login
+            Change Password
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -85,14 +88,32 @@ const LoginForm = () => {
 
               <FormField
                 control={form.control}
-                name="password"
+                name="oldPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Old Password</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Enter your password"
+                        placeholder="Enter your old password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="newPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>New Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Enter your new password"
                         {...field}
                       />
                     </FormControl>
@@ -106,7 +127,7 @@ const LoginForm = () => {
               )}
 
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Logging In..." : "Login"}
+                {isLoading ? "Changing Password..." : "Change Password"}
               </Button>
             </form>
           </Form>
@@ -116,4 +137,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ForgotPassword;

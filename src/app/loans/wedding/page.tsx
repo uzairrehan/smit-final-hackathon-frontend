@@ -31,7 +31,7 @@ export default function WeddingLoansPage() {
               <p className="text-gray-400">3 years</p>
             </div>
             <div className="text-center mt-6">
-              <Link href="/apply">
+              <Link href="/calculator">
                 <Button className="px-6 py-2 ">
                   Apply Now
                 </Button>
