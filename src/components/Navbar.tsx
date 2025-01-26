@@ -31,7 +31,7 @@ const Navbar = () => {
             Calculator
           </Link>
 
-          <Link href="/login" className="text-gray-300 hover:text-gray-400 font-light">
+          <Link href="/auth/login" className="text-gray-300 hover:text-gray-400 font-light">
             Login
           </Link>
 
@@ -71,7 +71,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              href="/login"
+              href="/auth/login"
               className="w-full text-gray-300 hover:text-gray-400 font-light"
               onClick={toggleMenu}
             >
