@@ -67,10 +67,10 @@ export function UserRegistrationModal({
         formData
       );
       console.log("register=>",response);
-      if (!loan) {
-        setError("please firstly make your loan");
-        return;
-      }
+      // if (!loan) {
+      //   setError("please firstly make your loan");
+      //   return;
+      // }
       const loanData = await axios.post(
         "https://smit-final-backend-uzair.vercel.app/loans/addloans",
         loan
