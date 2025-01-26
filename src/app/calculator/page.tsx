@@ -47,6 +47,8 @@ export default function LoanCalculator() {
 
     if (amount && initialDeposit && loanPeriod) {
       const maxLoan = typeof maxLoanAmounts[category] === "number" ? maxLoanAmounts[category] as number : 0;
+      console.log(maxLoan);
+      
       const principal = (amount as number) - (initialDeposit as number);
       const monthlyPayment = principal / ((loanPeriod as number) * 12);
       setMonthlyInstallment(monthlyPayment);
