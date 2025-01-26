@@ -37,39 +37,43 @@ const Loans = () => {
 
   return (
     <>
-      <main className="mt-16">
+      <main className="">
         {/* Header Section */}
-        <section className="bg-teal-50 text-center py-12">
+        <section className="bg-gray-900 text-center py-12">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl font-bold text-teal-600 mb-4">Loan Categories</h1>
-            <p className="text-lg text-gray-700">
+            <h1 className="text-4xl font-bold text-white mb-4">Loan Categories</h1>
+            <p className="text-lg text-gray-400">
               Discover the interest-free loan options tailored for your needs.
             </p>
           </div>
         </section>
 
         {/* Loan Categories */}
-        <section className="py-12 bg-gray-50">
+        <section className="py-12 bg-gray-950">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {loanCategories.map((category, index) => (
                 <Card
                   key={index}
-                  className="hover:shadow-lg transition-shadow"
+                  className="bg-gray-800   transition-shadow"
                 >
                   <CardHeader>
-                    <CardTitle className="text-xl text-teal-600">{category.title}</CardTitle>
+                    <CardTitle className="text-xl ">{category.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-600">{category.description}</p>
+                    <p className="text-gray-400">{category.description}</p>
                     <div className="mt-4 text-gray-500">
-                      <p><strong>Max Loan:</strong> {category.maxLoan}</p>
-                      <p><strong>Loan Period:</strong> {category.loanPeriod}</p>
+                      <p>
+                        <strong>Max Loan:</strong> {category.maxLoan}
+                      </p>
+                      <p>
+                        <strong>Loan Period:</strong> {category.loanPeriod}
+                      </p>
                     </div>
                     <Link href={category.link}>
                       <Button
                         variant="outline"
-                        className="mt-4 w-full text-teal-600"
+                        className="mt-4 w-full text "
                       >
                         Learn More
                       </Button>
